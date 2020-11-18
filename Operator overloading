@@ -1,0 +1,44 @@
+#include<iostream>
+using namespace std;
+
+typedef struct{
+    int a,b;
+}PS;
+istream & operator >>(istream & is, PS & p){
+    is >> p.a >> p.b;
+    return is;
+}
+ostream & operator <<(ostream & os, PS p){
+    os << p.a <<"/"<<p.b<<endl;
+    return os;
+}
+int uscln(int x,int y){
+    if(y == 0) return x;
+    return uscln(y,x % y);
+}
+PS rutgon(PS p){
+    int ucln = uscln(p.a,p.b);
+    p.a /= ucln;
+    p.b /= ucln;
+    return p;
+
+}
+PS operator + (PS p1,PS p2){
+    int tu = p1.a * p2.b + p2.a * p1.b;
+    int mau = p1.b * p2.b;
+
+    PS out;
+    out.a = tu;
+    out.b = mau;
+    return out;
+}
+int main(){
+    PS p1,p2;
+    cin >> p1;
+    cin >> p2;
+    cout<<"p1 = "<<rutgon(p1);
+    cout<<"\np2 = "<<rutgon(p2);
+    cout<<"\np1 + p2 = "<<rutgon(p1 + p2)<<endl;
+
+    return 0;
+}
