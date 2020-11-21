@@ -1,40 +1,83 @@
+// Bai tap lap trinh nang cao 
 #include<stdio.h>
+#include<stdbool.h>
 
-void nhap(int *arr[][100],int *m,int *n)
+bool Blum(int n)
 {
-    while((*m) <= 0 || (*n) <= 0 || (*m) != (*n))
+    int i = 2;
+    int count = 0;
+    while(n > 1)//Phan tich ra thua so nguyen to
     {
-        printf("\nNhap gia tri m va n : \n");
-        scanf("%d%d",m,n);
-    }
-    int i,j;
-    for(i = 0; i < *m; i++)
-    {
-        for(j = 0; j < *n; j++)
+        if( n % i == 0)
         {
-            printf("\narr[%d][%d] = ",i,j);
-            scanf("%d",&arr[i][j]);
+            count ++;
+            n /= i;
+        }else{
+            i++;
         }
+    }
+    if(count != 2)//Kiem tra N,neu count = 2 thi N la so Blum 
+    {
+        return false;
+    }else{
+        return true;
     }
 }
-void xuat(int *arr[][100],int m,int n)
+void timNT(int n)//Ham tim hai thua so nguyen to neu N la so Blum
 {
-    int i,j;
-    for(i = 0; i < m; i++)
-    {
-        for(j = 0; j < n; j++)
+    int m;
+    do{
+        printf("\nNhap so Blum bat ky : \n");
+        scanf("%d",&m);
+        printf("%d = ",m);
+        if(Blum(m))
         {
-            printf("%d\t",arr[i][j]);
+            int i = 2;
+            int count = 0;
+            while( m > 1)
+            {
+                if( m % i == 0)
+                {
+                    count ++;
+                    if( m == i)
+                    {
+                        printf("%d^%d",i,count);
+                    }
+                    m /= i;
+                }else{
+                    if(count > 0)
+                    {
+                        printf("%d^%d x ",i,count);
+                        count = 0;
+                    }
+                    i++;
+                }
+            }
         }
-        printf("\n");
-    }
+    }while(m != Blum(n));
 }
 int main()
 {
-    int m = 0, n = 0;
-    int arr[100][100];
-    nhap(arr,&m,&n);
-    xuat(arr,m,n);
+    int n,m,i;
+    do{
+        printf("Nhap n >= 1 : ");
+        scanf("%d",&n);
+    }while( n < 1 );
+    if( n == 1){
+        printf("\nN khong phai la so Blum");
+    }
+    if(Blum(n))
+    {
+        printf("\nN la so Blum\n\n");
+    }
+    for( i = 1 ; i <= n ; i++){
+        if(Blum(i))
+        {
+            printf("%d, ",i);//in ra cac so Blum trong khoang tu 1 den N
+        }
+    }
+    printf("\n");
+    timNT(n);
 
     return 0;
 }
